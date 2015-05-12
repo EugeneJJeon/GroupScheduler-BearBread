@@ -8,6 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import bearbread.org.groupscheduler.database.dao.GSDataDAO;
+import bearbread.org.groupscheduler.database.schema.CACHE;
+import bearbread.org.groupscheduler.database.schema.GROUP;
+import bearbread.org.groupscheduler.database.schema.SCHEDULE;
 
 /**
  * Created by Eugene J. Jeon on 2015-05-08.
@@ -65,7 +68,10 @@ public class CacheService extends Service implements Runnable {
         }
 
         // CacheTO 저장 & 그룹 아이디 발급!
-        mCacheTO.setGroup(GSDataDAO.getInstance(this).insert(mCacheTO));
+//        CACHE.SIZE = (int)GSDataDAO.getInstance(this).getCacheSize();
+//        GROUP.SIZE = (int)GSDataDAO.getInstance(this).getGroupSize();
+//        SCHEDULE.SIZE = (int)GSDataDAO.getInstance(this).getScheduleSize();
+        GSDataDAO.getInstance(this).insert(mCacheTO);
 
         // 동기화 서비스 실행!
         if (!AsyncService.Running) {

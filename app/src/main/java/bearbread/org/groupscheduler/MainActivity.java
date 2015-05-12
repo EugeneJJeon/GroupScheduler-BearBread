@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import bearbread.org.groupscheduler.database.dao.GSDataDAO;
+import bearbread.org.groupscheduler.database.schema.GROUP;
 import bearbread.org.groupscheduler.service.CacheService;
 
 /**
@@ -49,8 +50,8 @@ public class MainActivity extends Activity {
                 startService(serviceIntent);
                 break;
             case R.id.btn2 :
-                // new GroupTO(String admin, String name) : id는 자동생성 -> long getId()
-                GSDataDAO.GroupTO groupTO = new GSDataDAO.GroupTO(etxt2.getText().toString(), etxt3.getText().toString());
+                // new GroupTO(long id, String admin, String name) : id는 꼭 필요할때는 +1 해주고 집어넣습니다!
+                GSDataDAO.GroupTO groupTO = new GSDataDAO.GroupTO(++GROUP.SIZE, etxt2.getText().toString(), etxt3.getText().toString());
                 GSDataDAO.CacheTO cache = new GSDataDAO.CacheTO(this, GSDataDAO.TYPE.INSERT, groupTO);
 
                 // new ScheduleTO(long groupID, String owner, String name, String start_date, String end_date)

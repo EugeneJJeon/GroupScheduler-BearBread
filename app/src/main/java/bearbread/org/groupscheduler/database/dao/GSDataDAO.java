@@ -34,6 +34,9 @@ public class GSDataDAO {
         if (dao == null) {
             dao = new GSDataDAO(context);
         }
+        CACHE.SIZE = (int)dao.getCacheSize();
+        GROUP.SIZE = (int)dao.getGroupSize();
+        SCHEDULE.SIZE = (int)dao.getScheduleSize();
         return dao;
     }
 
@@ -41,8 +44,6 @@ public class GSDataDAO {
 
 	public  GSDataDAO(Context context) {
         db = DBHelper.getInstance(context);
-        CACHE.SIZE = (int)getCacheSize();
-        GROUP.SIZE = (int)getGroupSize();
     }
 
 	public  void close() { /*db.close(); dao = null;*/ }
@@ -172,10 +173,11 @@ public class GSDataDAO {
 		private String name;
 
 		public GroupTO() {}
-		public GroupTO(String admin, String name) {
-			this.admin = admin;
-			this.name = name;
-		}
+        public GroupTO(long id, String admin, String name) {
+            this.id = id;
+            this.admin = admin;
+            this.name = name;
+        }
 
 		@Override
 		public String toString() {
@@ -253,12 +255,11 @@ public class GSDataDAO {
 	/*
 	* DDL, insert
 	* */
-    public long insert(final CacheTO to) {
+    public void insert(final CacheTO to) {
         ContentValues values = new ContentValues();
 
         //to.setId(getCacheSize());       // 실제 값과 갯수의 차이를 이용한다. (갯수 : 1개 -> 실제 id : 0번)
         to.setId(++CACHE.SIZE);
-        to.setGroup(++GROUP.SIZE);
         Log.i("insert cache, ", String.valueOf(CACHE.SIZE));
 
         values.put(CACHE.SCHEMA.COLUMN_ID, to.getId());
@@ -272,8 +273,6 @@ public class GSDataDAO {
             throw new SQLException("fail at insert");
         }
         close();
-
-        return to.getGroup();
     }
 //    public void insert(final UserTO to) {
 //		ContentValues values = new ContentValues();
@@ -718,11 +717,11 @@ public class GSDataDAO {
     /*
     * search last-id in CacheTO
     * */
-    private long getCacheSize() {
+    public long getCacheSize() {
         Cursor cursor = null;
         long count = 0;
 
-        String sql = "SELECT * FROM " + CACHE.SCHEMA.TABLE_NAME + ";";     // 1 : first column
+        String sql = "SELECT * FROM '" + CACHE.SCHEMA.TABLE_NAME + "';";     // 1 : first column
 
         try {
             Log.v(Constants.LOG_TAG, GSDataDAO.CLASSNAME + " getSize - Cache");
@@ -739,14 +738,14 @@ public class GSDataDAO {
             }
         }
 
-        close();
+        Log.i("getSize - Cache : ", String.valueOf(count));
         return count;
     }
-    private long getGroupSize() {
+    public long getGroupSize() {
         Cursor cursor = null;
         long count = 0;
 
-        String sql = "SELECT * FROM " + GROUP.SCHEMA.TABLE_NAME + ";";     // 1 : first column
+        String sql = "SELECT * FROM '" + GROUP.SCHEMA.TABLE_NAME + "';";     // 1 : first column
 
         try {
             Log.v(Constants.LOG_TAG, GSDataDAO.CLASSNAME + " getSize - Group");
@@ -763,7 +762,31 @@ public class GSDataDAO {
             }
         }
 
-        close();
+        Log.i("getSize - Group : ", String.valueOf(count));
+        return count;
+    }
+    public long getScheduleSize() {
+        Cursor cursor = null;
+        long count = 0;
+
+        String sql = "SELECT * FROM '" + SCHEDULE.SCHEMA.TABLE_NAME + "';";     // 1 : first column
+
+        try {
+            Log.v(Constants.LOG_TAG, GSDataDAO.CLASSNAME + " getSize - Schedule");
+            cursor = db.get(sql);
+            count = cursor.getCount();
+            // db.logCursorInfo(cursor);
+
+            //ret = setBindCursorUserTO(cursor);
+        } catch (SQLException e) {
+            Log.e(Constants.LOG_TAG, GSDataDAO.CLASSNAME + " getScheduleSize ", e);
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        Log.i("getSize - Schedule : ", String.valueOf(count));
         return count;
     }
 

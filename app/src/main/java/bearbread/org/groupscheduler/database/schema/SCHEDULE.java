@@ -7,6 +7,7 @@ package bearbread.org.groupscheduler.database.schema;
  * date are 16 bit, like this. YYYYMMDDHHMMSSDAY, DAY is MON, THE, etc.
  */
 public class SCHEDULE {
+    public static int SIZE = 0;
 	SCHEDULE() {}
 
 	public static final class SCHEMA {

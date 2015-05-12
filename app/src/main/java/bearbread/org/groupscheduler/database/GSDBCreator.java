@@ -80,8 +80,8 @@ public class GSDBCreator implements DBCreator {
     private final String TABLE_CREATE_CACHE = "CREATE TABLE '"
             + CACHE.SCHEMA.TABLE_NAME + "' ("
             + CACHE.SCHEMA.COLUMN_ID + " INTEGER, "
+            + CACHE.SCHEMA.COLUMN_GROUP + " INTEGER, "
             + CACHE.SCHEMA.COLUMN_TYPE + " TEXT, "
-//            + CACHE.SCHEMA.COLUMN_TABLE + " TEXT, "
             + CACHE.SCHEMA.COLUMN_QUERY + " TEXT"
             + ");";
     private final String TABLE_DROP_CACHE = "DROP TABLE IF EXISTS '" + CACHE.SCHEMA.TABLE_NAME + "';";
