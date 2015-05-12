@@ -193,7 +193,8 @@ public class GSDataDAO {
 	public static class ScheduleTO {
         private final TABLE table = TABLE.USER;
 		private final String KEY_COLUMN[] = {SCHEDULE.SCHEMA.COLUMN_GROUP, SCHEDULE.SCHEMA.COLUMN_OWNER};
-		private long group;
+        private long id;
+        private long group;
 		private String owner;
 		private String name;
 		private String startDate;
@@ -210,10 +211,12 @@ public class GSDataDAO {
 
 		@Override
 		public String toString() {
-			return "id : " + String.valueOf(group) + ", owner : " + String.valueOf(owner) + ", name : " + name + ", start date : " + startDate + ", end date : " + endDate;
+			return "id : " + String.valueOf(id) + ", group : " + String.valueOf(group) + ", owner : " + String.valueOf(owner) + ", name : " + name + ", start date : " + startDate + ", end date : " + endDate;
 		}
 
         public TABLE getTo() { return table; }
+        public long getId() { return id; }
+        public void setId(long id) { this.id = id; }
 		public long getGroup() { return group; }
 		public void setGroup(long id) { this.group = id; }
 		public String getOwner() { return owner; }
@@ -685,9 +688,9 @@ public class GSDataDAO {
     }
     public String changeQuery(TYPE type, ScheduleTO to) {
         switch (type) {
-            case INSERT : String insertQuery = "INSERT INTO " + SCHEDULE.SCHEMA.TABLE_NAME + " VALUES (" + to.getGroup() + ", " + to.getOwner() + ", " + to.getName() + ", " + to.getStartDate() + ", " + to.getEndDate() + ");"; return insertQuery;
-            case UPDATE : String updateQuery = "UPDATE " + SCHEDULE.SCHEMA.TABLE_NAME + " SET " + SCHEDULE.SCHEMA.COLUMN_OWNER + "=" + to.getOwner() + ", " + SCHEDULE.SCHEMA.COLUMN_NAME + "=" + to.getName() +", " + SCHEDULE.SCHEMA.COLUMN_START_DATE + "=" + to.getStartDate() + ", " + SCHEDULE.SCHEMA.COLUMN_END_DATE + "=" + to.getEndDate() + " WHERE " + SCHEDULE.SCHEMA.COLUMN_GROUP + "=" + to.getGroup() + " AND " + SCHEDULE.SCHEMA.COLUMN_OWNER + "=" + to.getOwner() + ";"; return updateQuery;
-            case DELETE : String deleteQuery = "DELETE FROM " + SCHEDULE.SCHEMA.TABLE_NAME + " WHERE " + SCHEDULE.SCHEMA.COLUMN_GROUP + "=" + to.getGroup() + " AND " + SCHEDULE.SCHEMA.COLUMN_OWNER + "=" + to.getOwner() + ";"; return deleteQuery;
+            case INSERT : String insertQuery = "INSERT INTO " + SCHEDULE.SCHEMA.TABLE_NAME + " VALUES (" + to.getId() + ", " + to.getGroup() + ", " + to.getOwner() + ", " + to.getName() + ", " + to.getStartDate() + ", " + to.getEndDate() + ");"; return insertQuery;
+            case UPDATE : String updateQuery = "UPDATE " + SCHEDULE.SCHEMA.TABLE_NAME + " SET " + SCHEDULE.SCHEMA.COLUMN_OWNER + "=" + to.getOwner() + ", " + SCHEDULE.SCHEMA.COLUMN_NAME + "=" + to.getName() +", " + SCHEDULE.SCHEMA.COLUMN_START_DATE + "=" + to.getStartDate() + ", " + SCHEDULE.SCHEMA.COLUMN_END_DATE + "=" + to.getEndDate() + " WHERE " + SCHEDULE.SCHEMA.COLUMN_ID + "=" + to.getId() + " AND " + SCHEDULE.SCHEMA.COLUMN_OWNER + "=" + to.getOwner() + ";"; return updateQuery;
+            case DELETE : String deleteQuery = "DELETE FROM " + SCHEDULE.SCHEMA.TABLE_NAME + " WHERE " + SCHEDULE.SCHEMA.COLUMN_ID + "=" + to.getId() + " AND " + SCHEDULE.SCHEMA.COLUMN_OWNER + "=" + to.getOwner() + ";"; return deleteQuery;
         }
         return null;
     }

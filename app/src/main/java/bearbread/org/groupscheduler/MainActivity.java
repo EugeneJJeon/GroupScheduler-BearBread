@@ -41,20 +41,19 @@ public class MainActivity extends Activity {
             case R.id.btn1 :
                 Toast.makeText(this, "유저 입력", Toast.LENGTH_SHORT).show();
 
-                // new UserTO(String id, String name, String tel);
+                // new UserTO(String id, String name, String tel)
                 GSDataDAO.UserTO userTO = new GSDataDAO.UserTO(etxt1.getText().toString(), etxt2.getText().toString(), etxt3.getText().toString());
                 GSDataDAO.CacheTO cacheTO = new GSDataDAO.CacheTO(this, GSDataDAO.TYPE.INSERT, userTO);
                 Intent serviceIntent = new Intent(this, CacheService.class);
                 serviceIntent.putExtra(GSDataDAO.TO, cacheTO);
                 startService(serviceIntent);
-
-                Toast.makeText(this, "서비스!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn2 :
-                // new GroupTO(String admin, String name); : id는 자동생성 -> long getId()
+                // new GroupTO(String admin, String name) : id는 자동생성 -> long getId()
                 GSDataDAO.GroupTO groupTO = new GSDataDAO.GroupTO(etxt2.getText().toString(), etxt3.getText().toString());
                 GSDataDAO.CacheTO cache = new GSDataDAO.CacheTO(this, GSDataDAO.TYPE.INSERT, groupTO);
 
+                // new ScheduleTO(long groupID, String owner, String name, String start_date, String end_date)
                 GSDataDAO.ScheduleTO scheduleTO = new GSDataDAO.ScheduleTO(groupTO.getId(), "스케줄주인", "스케줄이름", "20150512", "20150512");
                 GSDataDAO.CacheTO newCache = new GSDataDAO.CacheTO(this, GSDataDAO.TYPE.INSERT, scheduleTO);
 

@@ -14,8 +14,9 @@ public class SCHEDULE {
 
 		public static final String TABLE_NAME = "SCHEDULE";
 
-		public static final String COLUMN_GROUP = "SGID";               // integer 8 byte and foreign key(ref group.gid), primary key
-		public static final String COLUMN_OWNER = "SOWNER";             // integer 8 byte and foreign key(ref user.uid), primary key
+        public static final String COLUMN_ID = "SID";                   // integer 8 byte primary key
+		public static final String COLUMN_GROUP = "SGID";               // integer 8 byte and foreign key(ref group.gid)
+		public static final String COLUMN_OWNER = "SOWNER";             // integer 8 byte and foreign key(ref user.uid)
 		public static final String COLUMN_NAME = "SNAME";               // varchar 32 byte, NOT NULL
 		public static final String COLUMN_START_DATE = "SSTARTDATE";    // varchar 8, NOT NULL
 		public static final String COLUMN_END_DATE = "SENDDATE";        // varchar 8, NOT NULL

@@ -65,7 +65,6 @@ public class HttpTask extends AsyncTask<String, Void, Boolean> {
         return false;
     }
 
-
     @Override
     protected void onPreExecute() {
 
