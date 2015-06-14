@@ -7,35 +7,57 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText1" />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText2"/>
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText3"/>
+        android:id="@+id/editText1"
+        android:hint="input String"/>
 
     <Button android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="전송"
+        android:text="데이터 전송"
         android:onClick="onClick" />
 
     <Button android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="확인"
+        android:text="임시 가입창 띄우기!"
         android:onClick="onClick"/>
+
+    <Button android:id="@+id/btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="폰에서 그룹 목록 확인"
+            android:onClick="onClick" />
+
+    <Button android:id="@+id/btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서버에서 유저 목록 확인"
+        android:onClick="onClick"/>
+
+    <Button android:id="@+id/btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서버에서 지정된 그룹 스케줄 가져오기!!"
+        android:onClick="onClick"/>
+
+    <Button android:id="@+id/btn6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="특정 유저 초대하기!"
+        android:onClick="onClick"/>
+
+    <Button android:id="@+id/btn7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="초대 목록 요청하기"
+            android:onClick="onClick"/>
+
+    <Button android:id="@+id/btn8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="초대 수락!"/>
 
     <TextView android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
-    <TextView android:id="@+id/textView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

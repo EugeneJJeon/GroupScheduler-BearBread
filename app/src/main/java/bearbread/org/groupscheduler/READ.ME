@@ -1,0 +1,74 @@
+update. add "gms" and "invite action" - ver. 20150603
+
+0. ver.20150602 [준비]를 선행한다.
+
+1. add Gradle Scripts -> build.gradle (Module: app) -> 아래 해당 부분에 추가한다.
+
+	dependencies {
+	    compile 'com.google.android.gms:play-services:7.3.0'
+	}
+
+
+2. "Sync Project with gradle file" 실행
+
+3. add manifests
+	<!-- GCM requires Android SDK version 2.2 (API level 8) or above. -->
+
+    <!-- 네트워크 접속 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- GCM을 받으려면 구글 계정 필요 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 메시지 받을 때 wake up 하기 위해 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- GCM 관련 퍼미션 -->
+    <permission android:name="xyz.dcafe.gcmsample.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="xyz.dcafe.gcmsample.permission.C2D_MESSAGE" />
+    <!-- GCM 받기 -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+	<application (......)>
+		<receiver android:name=".GCMBroadcastReceiver"
+                  android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="xyz.dcafe.gcmsample" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".GCMIntentService" />
+	</application>
+
+4. 나머지는 파일 그대로 하면 됨
+
+----------------------------------------------------------------------------------------------------
+
+create. this file - ver.20150602
+
+[준비!]
+
+1. 매니페스트에 두 서비스 추가!
+		<service android:name=".eugene.service.CacheService"
+                 android:process=":remote"
+                 android:enabled="true" />
+        <service android:name=".eugene.service.AsyncService"
+                 android:process=":remote"
+                 android:enabled="true" />
+
+2. 매니페스트에 권한 추가!
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
+
+3. res/layout/activity_main.xml 참고
+4. res/layout/dialog_sign.xml 추가 -> 수정할 것!
+
+5. bearbread.org.groupscheduler 하단에 "eugene" 패키지 통으로 추가!
+
+
+[사용]
+
+1. MainActivity 참고
+
+아직 미완성 : 초대에서 메시지 받는 부분!
